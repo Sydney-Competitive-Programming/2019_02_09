@@ -1,0 +1,22 @@
+➜  JustifiedWordWrap git:(master) ✗ vxc solution.vx --code >solution.code 2>/dev/null
+➜  JustifiedWordWrap git:(master) ✗ time run <solution.code
+INFO: '
+You have been hired by a company which needs to place an
+information booth in a shopping mall. The shopping mall also
+contains four fake trees to add ambiance to a shopper\'s
+experience.
+'
+INFO: '
+          You have been hired by a company which needs to place an
+      information booth in a shopping mall. The shopping mall also
+           contains four fake trees to add ambiance to a shopper\'s
+                                                       experience.
+'
+INFO: '
+You  have  been  hired  by  a  company  which  needs  to  place an
+information  booth  in  a  shopping  mall.  The shopping mall also
+contains   four   fake  trees  to  add  ambiance  to  a  shopper\'s
+experience.
+'
+'done'
+run < solution.code  0.01s user 0.00s system 95% cpu 0.013 total

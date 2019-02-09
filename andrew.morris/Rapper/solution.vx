@@ -28,7 +28,7 @@ for (i := 1u64; i <= 999u64; i++) {
       palCounts[data:String()]++;
     } else {
       palindromes |= #[data];
-      palCounts[data:String()] := 0u64;
+      palCounts[data:String()] := 1u64;
       count++;
 
       if (data > largest) {

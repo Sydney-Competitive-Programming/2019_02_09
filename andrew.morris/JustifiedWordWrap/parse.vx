@@ -1,0 +1,97 @@
+tab := '	';
+nl := '
+';
+
+func Words(str) {
+  res := [];
+  word := '';
+  len := str:Length();
+  skips := 2;
+
+  for (i := 0u64; i < len; i++) {
+    c := str[i];
+
+    if (c in #[' ', tab, nl]) {
+      if (word == '#') {
+        return res;
+      }
+
+      if (word:Length() > 0u64) {
+        if (skips > 0) {
+          skips--;
+        } else {
+          res ++= [word];
+        }
+
+        word = '';
+      }
+    } else {
+      word ++= c;
+    }
+  }
+
+  if (word:Length() > 0u64) {
+    res ++= [word];
+    word = '';
+  }
+
+  return res;
+};
+
+func Number(str) {
+  res := 0u64;
+  mul := 1u64;
+
+  strLen := str:Length();
+
+  for (i := 0u64; i < strLen; i++) {
+    res += mul * switch (str[strLen - 1u64 - i]) {
+      '0' => 0u64;
+      '1' => 1u64;
+      '2' => 2u64;
+      '3' => 3u64;
+      '4' => 4u64;
+      '5' => 5u64;
+      '6' => 6u64;
+      '7' => 7u64;
+      '8' => 8u64;
+      '9' => 9u64;
+    };
+
+    mul *= 10u64;
+  }
+
+  return res;
+};
+
+func Settings(str) {
+  res := [];
+  word := '';
+  len := str:Length();
+  remaining := 2;
+
+  for (i := 0u64; i < len; i++) {
+    c := str[i];
+
+    if (c in #[' ', tab, nl]) {
+      if (word:Length() > 0u64) {
+        if (remaining > 0) {
+          res ++= [word];
+          remaining--;
+        } else {
+          break;
+        }
+
+        word = '';
+      }
+    } else {
+      word ++= c;
+    }
+  }
+
+  [side, wStr] := res;
+
+  return [side, Number(wStr)];
+};
+
+return {Words, Settings};

@@ -1,0 +1,10 @@
+import ./wrap.vx;
+import ./sample1.vx;
+import ./sample2.vx;
+import ./sample3.vx;
+
+log.info wrap(sample1);
+log.info wrap(sample2);
+log.info wrap(sample3);
+
+return 'done';
