@@ -1,0 +1,4 @@
+➜  Rapper git:(master) ✗ vxc solution.vx --code >solution.code 2>/dev/null
+➜  Rapper git:(master) ✗ time run <solution.code
+{'q1': 'There are 150u64 different palindromes', 'q2': '13u64 numbers don\'t lead to a palindrome', 'q3': 'The largest palindrome is 8813200023188u64', 'q4': 'The most frequent palindrome is 1111u64 with 27u64 occurrences', 'x': []}
+run < solution.code  0.16s user 0.00s system 99% cpu 0.169 total
