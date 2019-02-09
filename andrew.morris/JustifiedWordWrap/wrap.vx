@@ -1,0 +1,39 @@
+import ./parse.vx;
+
+func Line(words, width, pos) {
+  res := [];
+  remainingSpace := width;
+
+  for (pos < words:Length()) {
+    word := words[pos];
+    len := word:Length();
+
+    if (remainingSpace < len) {
+      break;
+    }
+
+    res ++= [word];
+    remainingSpace -= len + 1u64;
+    pos++;
+  }
+
+  assert res:Length() > 0u64;
+
+  return res;
+};
+
+func Lines(words, width, pos) {
+  lines := [];
+
+  for (pos < words:Length()) {
+    line := Line(words, width, pos);
+    pos += line:Length();
+    lines ++= [line];
+  }
+
+  return lines;
+};
+
+
+
+return 'done';
