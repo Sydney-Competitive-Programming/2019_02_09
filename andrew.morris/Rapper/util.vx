@@ -1,0 +1,61 @@
+import ./util.vx;
+
+return {
+  Digits: func(n) {
+    res := [];
+
+    for (n > 0u64) {
+      digit := n % 10u64;
+      res ++= [digit];
+      n -= digit;
+      n /= 10u64;
+    }
+
+    return res;
+  },
+
+  reverse: func(arr) {
+    left := 0u64;
+    right := arr:Length() - 1u64;
+
+    for (left < right) {
+      [arr[left], arr[right]] = [arr[right], arr[left]];
+      left++;
+      right--;
+    }
+
+    return arr;
+  },
+
+  isSymmetric: func(arr) {
+    left := 0u64;
+    right := arr:Length() - 1u64;
+
+    for (left < right) {
+      if (arr[left] != arr[right]) {
+        return false;
+      }
+
+      left++;
+      right--;
+    }
+
+    return true;
+  },
+
+  isPalindrome: func(n) => util.isSymmetric(util.Digits(n)),
+
+  fromDigits: func(digits) {
+    res := 0u64;
+    mul := 1u64;
+
+    for (d of digits) {
+      res += mul * d;
+      mul *= 10u64;
+    }
+
+    return res;
+  },
+
+  rap: func(n) => n + util.fromDigits(util.reverse(util.Digits(n))),
+};

@@ -1,0 +1,66 @@
+import u from './util.vx';
+
+func fullRap(n) {
+  for {
+    n = u.rap(n);
+
+    if (n > 2u64 ** 48u64) {
+      return ['overflow', null];
+    }
+
+    if (u.isPalindrome(n)) {
+      return ['palindrome', n];
+    }
+  }
+};
+
+palindromes := #[];
+palCounts := {};
+failCount := 0u64;
+largest := 0u64;
+count := 0u64;
+
+for (i := 1u64; i <= 999u64; i++) {
+  [type, data] := fullRap(i);
+
+  if (type == 'palindrome') {
+    if (data in palindromes) {
+      palCounts[data:String()]++;
+    } else {
+      palindromes |= #[data];
+      palCounts[data:String()] := 0u64;
+      count++;
+
+      if (data > largest) {
+        largest = data;
+      }
+    }
+  } else {
+    failCount++;
+  }
+}
+
+mostFrequent := {
+  palStr: '',
+  palCount: 0u64,
+};
+
+for ([palStr, palCount] of palCounts:Entries()) {
+  if (palCount > mostFrequent.palCount) {
+    mostFrequent = {palStr, palCount};
+  }
+}
+
+return {
+  q1: 'There are ' ++ count:String() ++ ' different palindromes',
+  q2: failCount:String() ++ ' numbers don\'t lead to a palindrome',
+  q3: 'The largest palindrome is ' ++ largest:String(),
+  q4: (
+    'The most frequent palindrome is ' ++
+    mostFrequent.palStr ++
+    ' with ' ++
+    mostFrequent.palCount:String() ++
+    ' occurrences'
+  ),
+  x: [],
+};
