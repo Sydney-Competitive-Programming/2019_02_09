@@ -13,7 +13,7 @@ func Words(str) {
 
     if (c in #[' ', tab, nl]) {
       if (word == '#') {
-        break;
+        return res;
       }
 
       if (word:Length() > 0u64) {
@@ -58,7 +58,7 @@ func Number(str) {
       '9' => 9u64;
     };
 
-    mul *= 10;
+    mul *= 10u64;
   }
 
   return res;

@@ -1,6 +1,0 @@
-import ./parse.vx;
-import ./sample2.vx;
-
-log.info parse.Settings(sample2);
-
-return 'done';

@@ -22,8 +22,9 @@ func Line(words, width, pos) {
   return res;
 };
 
-func Lines(words, width, pos) {
+func Lines(words, width) {
   lines := [];
+  pos := 0u64;
 
   for (pos < words:Length()) {
     line := Line(words, width, pos);
@@ -34,6 +35,91 @@ func Lines(words, width, pos) {
   return lines;
 };
 
+nl := '
+';
 
+func floor(n) {
+  if (0u8:Kind() == 'u8') {
+    return n;
+  }
 
-return 'done';
+  return n - (n % 1);
+};
+
+func Gap(sz) {
+  res := '';
+
+  for (i := 0u64; i < sz; i++) {
+    res ++= ' ';
+  }
+
+  return res;
+};
+
+func Justify(lines, width, direction) {
+  res := nl;
+
+  for (line of lines) {
+    minLen := line:map(func(w) => w:Length() + 1u64):reduce(+) - 1u64;
+    assert minLen <= width;
+    excess := width - minLen;
+    gapCount := line:Length() - 1u64;
+
+    if (gapCount == 0u64) {
+      if (direction in #['L', 'J']) {
+        res ++= line[0u64];
+      } else if (direction == 'R') {
+        res ++= Gap(excess) ++ line[0u64];
+      } else {
+        assert false;
+      }
+    } else {
+      smallGap := 1u64 + floor(excess / gapCount);
+      largeGapCount := excess - gapCount * (smallGap - 1u64);
+
+      if (direction == 'L') {
+        res ++= line[0u64];
+
+        for (i := 1u64; i < line:Length(); i++) {
+          res ++= ' ' ++ line[i];
+        }
+      } else if (direction == 'R') {
+        res ++= Gap(excess);
+        res ++= line[0u64];
+
+        for (i := 1u64; i < line:Length(); i++) {
+          res ++= ' ' ++ line[i];
+        }
+      } else if (direction == 'J') {
+        res ++= line[0u64];
+
+        for (i := 1u64; i < line:Length(); i++) {
+          if (i <= largeGapCount) {
+            res ++= Gap(smallGap + 1u64);
+          } else {
+            res ++= Gap(smallGap);
+          }
+
+          res ++= line[i];
+        }
+      } else {
+        assert false;
+      }
+    }
+
+    res ++= nl;
+  }
+
+  return res;
+};
+
+func wrap(text) {
+  words := parse.Words(text);
+  [direction, width] := parse.Settings(text);
+
+  lines := Lines(words, width);
+
+  return Justify(lines, width, direction);
+};
+
+return wrap;
